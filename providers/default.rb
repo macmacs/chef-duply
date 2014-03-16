@@ -26,7 +26,8 @@ end
 action :backup do
   r = execute "duply_backup_#{new_resource.profile}" do
     command "/usr/bin/duply #{new_resource.profile} backup"
-    user "root"
+    user new_resource.user
+    group new_resource.group
   end
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
@@ -34,6 +35,8 @@ end
 action :full do
   r = execute "duply_full_#{new_resource.profile}" do
     command "/usr/bin/duply #{new_resource.profile} full"
+    user new_resource.user
+    group new_resource.group
   end
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
@@ -42,6 +45,8 @@ end
 action :incremental do
   r = execute "duply_incr_#{new_resource.profile}" do
     command "/usr/bin/duply #{new_resource.profile} incr"
+    user new_resource.user
+    group new_resource.group
   end
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
@@ -50,6 +55,8 @@ end
 action :restore do
   r = execute "duply_restore_#{new_resource.profile}" do
     command "/usr/bin/duply #{new_resource.profile} restore #{new_resource.destination}"
+    user new_resource.user
+    group new_resource.group
   end
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
