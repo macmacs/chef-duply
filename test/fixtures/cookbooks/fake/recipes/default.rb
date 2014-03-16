@@ -47,12 +47,12 @@ keys.each do |name,key|
     path "#{key_tmpdir}/#{key[:keyfile]}"
     sensitive true
     action :create
-    not_if "gpg --list-keys #{key[:key_id]}"
+    not_if "gpg --homedir #{gpg_home} --list-keys #{key[:key_id]} | grep #{key[:key_id]}"
   end
 
   execute "key_#{name}_import" do
     command "gpg --homedir #{gpg_home} --import #{key_tmpdir}/#{key[:keyfile]}"
-    not_if "gpg --list-keys #{key[:key_id]}"
+    not_if "gpg --homedir #{gpg_home} --list-keys #{key[:key_id]} | grep #{key[:key_id]}"
   end
 
   ruby_block "key_#{name}_trust" do
