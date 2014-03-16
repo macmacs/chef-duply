@@ -31,6 +31,8 @@ keys['server'] = {
 
 directory gpg_home do
   owner 'root'
+  group 'root'
+  mode 0700
   action :create
 end
 
@@ -82,11 +84,62 @@ include_recipe 'duply::default'
 
 duply_profile "test" do
   destination "file:///var/backups/test"
-  encrypt_for [ keys['alice'][:key_id], keys['bob'][:key_id] ]
+  encrypt_for [ keys['server'][:key_id], keys['alice'][:key_id], keys['bob'][:key_id] ]
   signed_by   keys['server'][:key_id]
   passphrase  keys['server'][:passphrase]
   compression :bzip2
   volume_size 50
   keep_full   5
   full_every  '2M'
+  includes [
+      '/etc/duply'
+           ]
+  excludes [
+      '**.asc'
+           ]
+end
+
+
+# Test commands
+
+directory "/var/backups/test" do
+  action :delete
+  recursive true
+end
+
+
+duply "test" do
+  profile "test"
+  action :backup
+end
+
+duply "test-incr" do
+  profile "test"
+  action :incremental
+end
+
+
+duply "test-full" do
+  profile "test"
+  action :full
+end
+
+
+duply "test-incr-auto" do
+  profile "test"
+  action :backup
+end
+
+# Restoration Tests
+restore_dir = "/var/backups/restore_test"
+
+directory restore_dir do
+  action :delete
+  recursive true
+end
+
+duply "test-restore" do
+  profile "test"
+  destination restore_dir
+  action :restore
 end

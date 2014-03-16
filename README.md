@@ -22,6 +22,40 @@ Recipes
 Installs the LWRP.  Does nothing else.
 
 
+Resources
+---------
+This cookbook provides a profile resource along with direct command execution.
+
+```ruby
+duply_profile "profile_name" do
+  destination "file:///var/backups/test"
+  encrypt_for [ keys['server'][:key_id], keys['alice'][:key_id], keys['bob'][:key_id] ]
+  signed_by   keys['server'][:key_id]
+  passphrase  keys['server'][:passphrase]
+  compression :bzip2
+  volume_size 50
+  keep_full   5
+  full_every  '2M'
+  includes [
+      '/etc/duply'
+  ]
+  excludes [
+      '**.asc'
+  ]
+end
+```
+
+Execute duply commands from the cookbook
+
+```ruby
+duply "test-incr" do
+  profile "test"
+  action :incremental
+end
+```
+
+
+
 License & Authors
 -----------------
 - Author:: Ted Chen (<ted@nephilagraphic.com>)
