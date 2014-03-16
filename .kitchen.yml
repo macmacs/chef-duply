@@ -1,23 +1,16 @@
 ---
-driver_plugin: vagrant
-driver_config:
-  require_chef_omnibus: true
-  use_vagrant_berkshelf_plugin: true
-  customize:
-    memory: 512
-    cpus: 2
+driver:
+  name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
   - name: ubuntu-12.04
-    driver_config:
-      box: opscode_ubuntu-12.04_provisionerless
-      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
 
 suites:
-  - name: default
+  - name: duply
     run_list:
-      - recipe[duply::default]
+      - recipe[apt::default]
+      - recipe[fake::default]
     attributes:
