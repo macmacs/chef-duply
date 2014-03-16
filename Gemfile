@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+group :lint do
+  gem 'foodcritic', '~> 3.0.3'
+end
+
 group :unit do
   gem 'berkshelf', '~> 2.0.14'
   gem 'chefspec', '~> 3.3.1'
