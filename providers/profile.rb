@@ -59,6 +59,8 @@ action :create do
     group     "root"
     mode      0600
     variables(
+        :includes => new_resource.includes,
+        :excludes => new_resource.excludes
     )
     action :create
   end

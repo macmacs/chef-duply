@@ -2,5 +2,10 @@
 # Do NOT modify this file by hand!
 #
 # DUPLY EXCLUSION CONFIGURATION
-
+<% @includes.each do |glob| -%>
++ <%= glob %>
+<% end -%>
+<% @excludes.each do |glob| -%>
+- <%= glob %>
+<% end -%>
 **
