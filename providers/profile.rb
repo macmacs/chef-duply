@@ -19,9 +19,10 @@
 
 
 action :delete do
-  directory "#{node['duply']['dir']}/#{new_resource.name}" do
+  d = directory "#{node['duply']['dir']}/#{new_resource.name}" do
     action :delete
   end
+  new_resource.updated_by_last_action(d.updated_by_last_action?)
 end
 
 action :create do
