@@ -17,46 +17,51 @@
 # limitations under the License.
 #
 
-require "chef/mixin/command"
 
 
 action :nothing do
 end
 
 action :backup do
-  r = execute "duply_backup_#{new_resource.profile}" do
-    command "/usr/bin/duply #{new_resource.profile} backup"
-    user new_resource.user
-    group new_resource.group
-  end
+  r = duply_command_as_user(new_resource.user,
+                            new_resource.profile, 'backup'
+  )
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
 
 action :full do
-  r = execute "duply_full_#{new_resource.profile}" do
-    command "/usr/bin/duply #{new_resource.profile} full"
-    user new_resource.user
-    group new_resource.group
-  end
+  r = duply_command_as_user(new_resource.user,
+                            new_resource.profile, 'full'
+  )
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
 
 
 action :incremental do
-  r = execute "duply_incr_#{new_resource.profile}" do
-    command "/usr/bin/duply #{new_resource.profile} incr"
-    user new_resource.user
-    group new_resource.group
-  end
+  r = duply_command_as_user(new_resource.user,
+                            new_resource.profile, 'incr'
+  )
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
 
 
 action :restore do
-  r = execute "duply_restore_#{new_resource.profile}" do
-    command "/usr/bin/duply #{new_resource.profile} restore #{new_resource.destination}"
-    user new_resource.user
-    group new_resource.group
-  end
+  r = duply_command_as_user(new_resource.user,
+                            new_resource.profile, 'restore', [ new_resource.destination ]
+  )
   new_resource.updated_by_last_action(r.updated_by_last_action?)
+end
+
+
+private
+
+def duply_command_as_user(user, profile, command, args = [ ])
+  # We actually use su command as root to fully run as the specified user
+  # along with all its environment variables, etc.  This is required so that pre and post
+  # are in the right environment.
+  execute "duply_#{profile}_#{command}" do
+    command "su - #{user} -c \"/usr/bin/duply #{profile} #{command} #{args.flatten.join ' '}\""
+    user 'root'
+    group 'root'
+  end
 end
