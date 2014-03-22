@@ -3,6 +3,12 @@ duply cookbook
 
 LWRP for Duplicity/Duply backup sets.
 
+Supports
+
+* Ubuntu 12.04
+* Debian 7.4
+
+
 Requirements
 ------------
 
