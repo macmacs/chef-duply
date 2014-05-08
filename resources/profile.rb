@@ -40,6 +40,13 @@ attribute :temp_dir,          :kind_of => String, :default => '/tmp'
 attribute :template,          :kind_of => String, :default => 'conf.erb'
 attribute :cookbook,          :kind_of => String, :default => 'duply'
 
+attribute :pre_template,      :kind_of => String, :default => 'pre.erb'
+attribute :pre_cookbook,      :kind_of => String, :default => 'duply'
+
+attribute :post_template,     :kind_of => String, :default => 'post.erb'
+attribute :post_cookbook,     :kind_of => String, :default => 'duply'
+
+
 def initialize(*args)
   super
   @action = :create

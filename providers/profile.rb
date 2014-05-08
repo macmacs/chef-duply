@@ -66,6 +66,27 @@ action :create do
     action :create
   end
 
+  tpre = template "#{node['duply']['dir']}/#{new_resource.name}/pre" do
+    cookbook  new_resource.pre_cookbook
+    source    new_resource.pre_template
+    owner     "root"
+    group     "root"
+    mode      0600
+    action :create
+  end
+
+  tpost = template "#{node['duply']['dir']}/#{new_resource.name}/post" do
+    cookbook  new_resource.post_cookbook
+    source    new_resource.post_template
+    owner     "root"
+    group     "root"
+    mode      0600
+    action :create
+  end
+
+
   new_resource.updated_by_last_action(tconf.updated_by_last_action? ||
-                                      texclude.updated_by_last_action?)
+                                      texclude.updated_by_last_action? ||
+                                      tpre.updated_by_last_action? ||
+                                      tpost.updated_by_last_action? )
 end
