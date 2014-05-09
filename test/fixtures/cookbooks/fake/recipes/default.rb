@@ -84,6 +84,8 @@ include_recipe 'duply::default'
 
 duply_profile "test" do
   destination "file:///var/backups/test"
+  user        "testuser"
+  password    "testpass"
   encrypt_for [ keys['server'][:key_id], keys['alice'][:key_id], keys['bob'][:key_id] ]
   signed_by   keys['server'][:key_id]
   passphrase  keys['server'][:passphrase]

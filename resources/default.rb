@@ -25,7 +25,6 @@ attribute :profile,           :kind_of => String, :required => true
 attribute :destination,       :kind_of => String
 
 attribute :user,              :kind_of => String, :default => 'root'
-attribute :group,             :kind_of => String, :default => 'root'
 
 def initialize(*args)
   super

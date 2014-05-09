@@ -21,8 +21,10 @@ TARGET='<%= @target %>'
 
 # optionally the username/password can be defined as extra variables
 # setting them here _and_ in TARGET results in an error
-#TARGET_USER='_backend_username_'
-#TARGET_PASS='_backend_password_'
+<% unless @target_pass.nil? -%>
+TARGET_USER='<%= @target_user %>'
+TARGET_PASS='<%= @target_pass %>'
+<% end -%>
 
 # base directory to backup
 SOURCE='/'

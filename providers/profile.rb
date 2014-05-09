@@ -44,6 +44,8 @@ action :create do
         :gpg_key_sign => new_resource.signed_by,
         :gpg_pw_sign => new_resource.passphrase,
         :target => new_resource.destination,
+        :target_user => new_resource.user,
+        :target_pass => new_resource.password,
         :max_age => new_resource.max_age,
         :max_full_backups => new_resource.keep_full,
         :max_fullbkp_age => new_resource.full_every,

@@ -22,6 +22,8 @@ actions :create, :delete
 attribute :name,              :kind_of => String, :name_attribute => true
 
 attribute :destination,       :kind_of => String, :required => true
+attribute :user,              :kind_of => String, :default => nil
+attribute :password,          :kind_of => String, :default => nil
 attribute :includes,          :kind_of => Array, :default => [ ]
 attribute :excludes,          :kind_of => Array, :default => [ ]
 
