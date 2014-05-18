@@ -53,6 +53,7 @@ action :create do
         :temp_dir => new_resource.temp_dir
     )
     action :create
+    sensitive true
   end
 
   texclude = template "#{node['duply']['dir']}/#{new_resource.name}/exclude" do
@@ -75,6 +76,7 @@ action :create do
     group     "root"
     mode      0600
     action :create
+    sensitive true
   end
 
   tpost = template "#{node['duply']['dir']}/#{new_resource.name}/post" do
@@ -84,6 +86,7 @@ action :create do
     group     "root"
     mode      0600
     action :create
+    sensitive true
   end
 
 
