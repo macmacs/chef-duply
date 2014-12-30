@@ -55,7 +55,7 @@ def duply_command_as_user(user, profile, command, args = [])
   # along with all its environment variables, etc.  This is required so that pre and post
   # are in the right environment.
   execute "duply_#{profile}_#{command}" do
-    command "su - #{user} -c \"/usr/bin/duply #{profile} #{command} #{args.flatten.join ' '}\""
+    command "su - #{user} -c \"/usr/bin/flock -n /var/run/duply.lock /usr/bin/duply #{profile} #{command} #{args.flatten.join ' '}\";sleep 1"
     user 'root'
     group 'root'
   end
