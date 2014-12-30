@@ -1,11 +1,13 @@
 duply cookbook
 ==============
+[![Build Status](https://travis-ci.org/nephilagraphic-cookbooks/duply.svg?branch=master)](https://travis-ci.org/nephilagraphic-cookbooks/duply)
 
 LWRP for Duplicity/Duply backup sets.
 
 Supports
 
 * Ubuntu 12.04
+* Ubuntu 14.04
 * Debian 7.4
 
 

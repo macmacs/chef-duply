@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-
-
 action :nothing do
 end
 
@@ -36,7 +34,6 @@ action :full do
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
 
-
 action :incremental do
   r = duply_command_as_user(new_resource.user,
                             new_resource.profile, 'incr'
@@ -44,18 +41,16 @@ action :incremental do
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
 
-
 action :restore do
   r = duply_command_as_user(new_resource.user,
-                            new_resource.profile, 'restore', [ new_resource.destination ]
+                            new_resource.profile, 'restore', [new_resource.destination]
   )
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
 
-
 private
 
-def duply_command_as_user(user, profile, command, args = [ ])
+def duply_command_as_user(user, profile, command, args = [])
   # We actually use su command as root to fully run as the specified user
   # along with all its environment variables, etc.  This is required so that pre and post
   # are in the right environment.

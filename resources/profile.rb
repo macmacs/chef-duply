@@ -19,35 +19,38 @@
 
 actions :create, :delete
 
-attribute :name,              :kind_of => String, :name_attribute => true
+attribute :name, kind_of: String, name_attribute: true
 
-attribute :destination,       :kind_of => String, :required => true
-attribute :user,              :kind_of => String, :default => nil
-attribute :password,          :kind_of => String, :default => nil
-attribute :includes,          :kind_of => Array, :default => [ ]
-attribute :excludes,          :kind_of => Array, :default => [ ]
+attribute :destination, kind_of: String, required: true
+attribute :user, kind_of: String, default: nil
+attribute :password, kind_of: String, default: nil
+attribute :includes, kind_of: Array, default: []
+attribute :excludes, kind_of: Array, default: []
 
-attribute :max_age,           :kind_of => String, :default => '1M'
+attribute :max_age, kind_of: String, default: '1M'
 
-attribute :keep_full,         :kind_of => [Integer, NilClass]
-attribute :full_every,        :kind_of => [String, NilClass]
+attribute :keep_full, kind_of: [Integer, NilClass]
+attribute :full_every, kind_of: [String, NilClass]
 
-attribute :encrypt_for,       :kind_of => [String, Array],  :required => true
-attribute :signed_by,         :kind_of => String, :required => true
-attribute :passphrase,        :kind_of => String, :required => true
-attribute :compression,       :kind_of => Symbol, :equal_to => [:bzip2, :incremental], :default => :none
-attribute :volume_size,       :kind_of => Integer, :default => 25
-attribute :temp_dir,          :kind_of => String, :default => '/tmp'
+attribute :encrypt_for, kind_of: [String, Array], required: true
+attribute :signed_by, kind_of: String, required: true
+attribute :passphrase, kind_of: String, required: true
+attribute :compression,
+          kind_of: Symbol,
+          equal_to: [:bzip2, :incremental],
+          default: :none
 
-attribute :template,          :kind_of => String, :default => 'conf.erb'
-attribute :cookbook,          :kind_of => String, :default => 'duply'
+attribute :volume_size, kind_of: Integer, default: 25
+attribute :temp_dir, kind_of: String, default: '/tmp'
 
-attribute :pre_template,      :kind_of => String, :default => 'pre.erb'
-attribute :pre_cookbook,      :kind_of => String, :default => 'duply'
+attribute :template, kind_of: String, default: 'conf.erb'
+attribute :cookbook, kind_of: String, default: 'duply'
 
-attribute :post_template,     :kind_of => String, :default => 'post.erb'
-attribute :post_cookbook,     :kind_of => String, :default => 'duply'
+attribute :pre_template, kind_of: String, default: 'pre.erb'
+attribute :pre_cookbook, kind_of: String, default: 'duply'
 
+attribute :post_template, kind_of: String, default: 'post.erb'
+attribute :post_cookbook, kind_of: String, default: 'duply'
 
 def initialize(*args)
   super

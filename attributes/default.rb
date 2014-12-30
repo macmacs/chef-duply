@@ -17,6 +17,5 @@
 # limitations under the License.
 #
 
-
 default['duply']['dir'] = '/etc/duply'
 default['duply']['install_method'] = 'package'

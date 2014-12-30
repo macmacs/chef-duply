@@ -1,7 +1,5 @@
-site :opscode
+source 'https://supermarket.getchef.com'
 
 metadata
 
-cookbook 'apt'
-cookbook 'postfix'
-cookbook 'fake', :path => './test/fixtures/cookbooks/fake'
+cookbook 'fake', path: 'test/fixtures/cookbooks/fake'

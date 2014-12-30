@@ -1,6 +1,4 @@
-require 'serverspec'
-
-include Serverspec::Helper::Exec
+require 'spec_helper'
 
 # Ensure duplicity profile exists
 describe file('/etc/duply/test') do
@@ -12,11 +10,11 @@ describe file('/etc/duply/test/conf') do
 end
 
 # Check backup files
-describe file('/var/backups/test') do
+describe file('/var/testing/run') do
   it { should be_directory }
 end
 
 # Check restore
-describe file('/var/backups/restore_test/etc/duply/test/conf') do
+describe file('/var/testing/restore_test/etc/duply/test/conf') do
   it { should be_file }
 end

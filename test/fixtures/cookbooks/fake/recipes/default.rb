@@ -1,3 +1,5 @@
+include_recipe 'apt'
+
 require 'systemu'
 
 # Needed otherwise GPG just won't have enough entropy
@@ -5,28 +7,27 @@ package 'haveged' do
   action :install
 end
 
-
 gpg_home = '/root/.gnupg'
-keys = Hash.new
+keys = {}
 keys['alice'] = {
-    :keyfile => 'alice.pub',
-    :key_id => 'DBD8962C',
-    :passphrase => 'alicesecret',
-    :fingerprint => '14447E6957AC4C75065C9CEFCE7B21DCDBD8962C'
+  keyfile: 'alice.pub',
+  key_id: 'DBD8962C',
+  passphrase: 'alicesecret',
+  fingerprint: '14447E6957AC4C75065C9CEFCE7B21DCDBD8962C'
 }
 
 keys['bob'] = {
-    :keyfile => 'bob.pub',
-    :key_id => '5A250D54',
-    :passphrase => 'bobsecret',
-    :fingerprint => 'EBF515F2EB6542505235C2134390D06A5A250D54'
+  keyfile: 'bob.pub',
+  key_id: '5A250D54',
+  passphrase: 'bobsecret',
+  fingerprint: 'EBF515F2EB6542505235C2134390D06A5A250D54'
 }
 
 keys['server'] = {
-    :keyfile => 'server.key',
-    :key_id => '41AB2B65',
-    :passphrase => 'serversecret',
-    :fingerprint => 'DEBA80E2924424EFD240630B362AC8FF41AB2B65'
+  keyfile: 'server.key',
+  key_id: '41AB2B65',
+  passphrase: 'serversecret',
+  fingerprint: 'DEBA80E2924424EFD240630B362AC8FF41AB2B65'
 }
 
 directory gpg_home do
@@ -43,18 +44,20 @@ end
 
 # Import the test public/private keys
 
-keys.each do |name,key|
+keys.each do |name, key|
+
+  key_exists = "gpg --homedir #{gpg_home} --list-keys #{key[:key_id]} | grep #{key[:key_id]}"
 
   cookbook_file key[:keyfile] do
     path "#{key_tmpdir}/#{key[:keyfile]}"
     sensitive true
     action :create
-    not_if "gpg --homedir #{gpg_home} --list-keys #{key[:key_id]} | grep #{key[:key_id]}"
+    not_if key_exists
   end
 
   execute "key_#{name}_import" do
     command "gpg --homedir #{gpg_home} --import #{key_tmpdir}/#{key[:keyfile]}"
-    not_if "gpg --homedir #{gpg_home} --list-keys #{key[:key_id]} | grep #{key[:key_id]}"
+    not_if key_exists
   end
 
   ruby_block "key_#{name}_trust" do
@@ -65,14 +68,12 @@ keys.each do |name,key|
           1 => stdout = '',
           2 => stderr = ''
       )
-      if status != 0
-        Chef::Log.error("duply: #{stdout} #{stderr}")
-      end
+
+      Chef::Log.error("duply: #{stdout} #{stderr}") if status != 0
     end
   end
 
 end
-
 
 # Install the OS version.  Good enough for testing.
 package 'duplicity python-boto' do
@@ -81,67 +82,58 @@ end
 
 include_recipe 'duply::default'
 
-
-duply_profile "test" do
-  destination "file:///var/backups/test"
-  user        "testuser"
-  password    "testpass"
-  encrypt_for [ keys['server'][:key_id], keys['alice'][:key_id], keys['bob'][:key_id] ]
-  signed_by   keys['server'][:key_id]
-  passphrase  keys['server'][:passphrase]
+duply_profile 'test' do
+  destination 'file:///var/testing/run'
+  user 'testuser'
+  password 'testpass'
+  encrypt_for [
+    keys['server'][:key_id],
+    keys['alice'][:key_id],
+    keys['bob'][:key_id]
+  ]
+  signed_by keys['server'][:key_id]
+  passphrase keys['server'][:passphrase]
   compression :bzip2
   volume_size 50
-  keep_full   5
-  full_every  '2M'
+  keep_full 5
+  full_every '2M'
   includes [
-      '/etc/duply'
-           ]
+    '/etc/duply'
+  ]
   excludes [
-      '**.asc'
-           ]
+    '**.asc'
+  ]
 end
-
 
 # Test commands
 
-directory "/var/backups/test" do
-  action :delete
-  recursive true
+execute 'purge_test' do
+  command 'rm /var/testing -r'
+  only_if { Dir.exist?('/var/testing') }
 end
 
-
-duply "test" do
-  profile "test"
+duply 'test' do
+  profile 'test'
   action :backup
 end
 
-duply "test-incr" do
-  profile "test"
+duply 'test-incr' do
+  profile 'test'
   action :incremental
 end
 
-
-duply "test-full" do
-  profile "test"
+duply 'test-full' do
+  profile 'test'
   action :full
 end
 
-
-duply "test-incr-auto" do
-  profile "test"
+duply 'test-incr-auto' do
+  profile 'test'
   action :backup
 end
 
-# Restoration Tests
-restore_dir = "/var/backups/restore_test"
-
-directory restore_dir do
-  action :delete
-  recursive true
-end
-
-duply "test-restore" do
-  profile "test"
-  destination restore_dir
+duply 'test-restore' do
+  profile 'test'
+  destination '/var/testing/restore_test'
   action :restore
 end

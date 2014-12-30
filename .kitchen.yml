@@ -1,6 +1,5 @@
 ---
-driver:
-  name: vagrant
+driver_plugin: vagrant
 
 provisioner:
   name: chef_zero
@@ -13,6 +12,5 @@ platforms:
 suites:
   - name: duply
     run_list:
-      - recipe[apt::default]
       - recipe[fake::default]
     attributes:
