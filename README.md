@@ -1,6 +1,6 @@
 duply cookbook
 ==============
-[![Build Status](https://travis-ci.org/nephilagraphic-cookbooks/duply.svg?branch=master)](https://travis-ci.org/nephilagraphic-cookbooks/duply)
+[![Build Status](https://travis-ci.org/dataferret/chef-duply.svg?branch=master)](https://travis-ci.org/dataferret/chef-duply)
 
 LWRP for Duplicity/Duply backup sets.
 
