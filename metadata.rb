@@ -1,6 +1,6 @@
 name 'duply'
-maintainer 'Nephila Graphic'
-maintainer_email 'ted@nephilagraphic.com'
+maintainer 'Li-Te Chen'
+maintainer_email 'datacoda@gmail.com'
 license 'All rights reserved'
 description 'Installs/Configures duply'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
