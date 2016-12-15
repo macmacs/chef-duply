@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+use_inline_resources
+
 action :delete do
   d = directory "#{node['duply']['dir']}/#{new_resource.name}" do
     action :delete
@@ -28,7 +30,7 @@ action :create do
   directory "#{node['duply']['dir']}/#{new_resource.name}" do
     user 'root'
     group 'root'
-    mode 0700
+    mode '0700'
     action :create
   end
 
@@ -37,19 +39,19 @@ action :create do
     source new_resource.template
     owner 'root'
     group 'root'
-    mode 0600
+    mode '0600'
     variables(
-        gpg_keys_enc: [new_resource.encrypt_for].flatten,
-        gpg_key_sign: new_resource.signed_by,
-        gpg_pw_sign: new_resource.passphrase,
-        target: new_resource.destination,
-        target_user: new_resource.user,
-        target_pass: new_resource.password,
-        max_age: new_resource.max_age,
-        max_full_backups: new_resource.keep_full,
-        max_fullbkp_age: new_resource.full_every,
-        volsize: new_resource.volume_size,
-        temp_dir: new_resource.temp_dir
+      gpg_keys_enc: [new_resource.encrypt_for].flatten,
+      gpg_key_sign: new_resource.signed_by,
+      gpg_pw_sign: new_resource.passphrase,
+      target: new_resource.destination,
+      target_user: new_resource.user,
+      target_pass: new_resource.password,
+      max_age: new_resource.max_age,
+      max_full_backups: new_resource.keep_full,
+      max_fullbkp_age: new_resource.full_every,
+      volsize: new_resource.volume_size,
+      temp_dir: new_resource.temp_dir
     )
     action :create
     sensitive true
@@ -60,7 +62,7 @@ action :create do
     source 'exclude.erb'
     owner 'root'
     group 'root'
-    mode 0600
+    mode '0600'
     variables(
       includes: new_resource.includes,
       excludes: new_resource.excludes
@@ -73,7 +75,7 @@ action :create do
     source new_resource.pre_template
     owner 'root'
     group 'root'
-    mode 0600
+    mode '0600'
     action :create
     sensitive true
   end
@@ -83,7 +85,7 @@ action :create do
     source new_resource.post_template
     owner 'root'
     group 'root'
-    mode 0600
+    mode '0600'
     action :create
     sensitive true
   end

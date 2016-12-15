@@ -33,7 +33,7 @@ keys['server'] = {
 directory gpg_home do
   owner 'root'
   group 'root'
-  mode 0700
+  mode '0700'
   action :create
 end
 
@@ -45,7 +45,6 @@ end
 # Import the test public/private keys
 
 keys.each do |name, key|
-
   key_exists = "gpg --homedir #{gpg_home} --list-keys #{key[:key_id]} | grep #{key[:key_id]}"
 
   cookbook_file key[:keyfile] do
@@ -63,16 +62,15 @@ keys.each do |name, key|
   ruby_block "key_#{name}_trust" do
     block do
       status = systemu(
-          "gpg --homedir #{gpg_home} --import-ownertrust",
-          0 => "#{key[:fingerprint]}:6:\n",
-          1 => stdout = '',
-          2 => stderr = ''
+        "gpg --homedir #{gpg_home} --import-ownertrust",
+        0 => "#{key[:fingerprint]}:6:\n",
+        1 => stdout = '',
+        2 => stderr = ''
       )
 
-      Chef::Log.error("duply: #{stdout} #{stderr}") if status != 0
+      Chef::Log.error("duply: #{stdout} #{stderr}") if status.nonzero?
     end
   end
-
 end
 
 # Install the OS version.  Good enough for testing.

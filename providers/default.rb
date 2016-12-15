@@ -17,34 +17,32 @@
 # limitations under the License.
 #
 
+use_inline_resources
+
 action :nothing do
 end
 
 action :backup do
   r = duply_command_as_user(new_resource.user,
-                            new_resource.profile, 'backup'
-  )
+                            new_resource.profile, 'backup')
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
 
 action :full do
   r = duply_command_as_user(new_resource.user,
-                            new_resource.profile, 'full'
-  )
+                            new_resource.profile, 'full')
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
 
 action :incremental do
   r = duply_command_as_user(new_resource.user,
-                            new_resource.profile, 'incr'
-  )
+                            new_resource.profile, 'incr')
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
 
 action :restore do
   r = duply_command_as_user(new_resource.user,
-                            new_resource.profile, 'restore', [new_resource.destination]
-  )
+                            new_resource.profile, 'restore', [new_resource.destination])
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
 

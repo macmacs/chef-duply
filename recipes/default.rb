@@ -22,5 +22,5 @@ include_recipe "duply::#{node['duply']['install_method']}"
 directory node['duply']['dir'] do
   user 'root'
   group 'root'
-  mode 0700
+  mode '0700'
 end
