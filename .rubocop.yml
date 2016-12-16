@@ -28,6 +28,14 @@ CyclomaticComplexity:
 Style/FileName:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - "providers/profile.rb"
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+    - 'test/**/*.rb'
+
 EndOfLine:
   Enabled: false
 

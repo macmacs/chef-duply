@@ -68,7 +68,7 @@ keys.each do |name, key|
         2 => stderr = ''
       )
 
-      Chef::Log.error("duply: #{stdout} #{stderr}") if status.nonzero?
+      Chef::Log.error("duply: #{stdout} #{stderr}") if status != 0
     end
   end
 end
