@@ -1,6 +1,7 @@
 duply cookbook
 ==============
 [![Build Status](https://travis-ci.org/datacoda/chef-duply.svg?branch=master)](https://travis-ci.org/datacoda/chef-duply)
+[![Cookbook Version](https://img.shields.io/cookbook/v/duply.svg)](https://supermarket.chef.io/cookbooks/duply)
 
 LWRP for Duplicity/Duply backup sets.
 
