@@ -54,6 +54,25 @@ duply_profile "profile_name" do
 end
 ```
 
+It is also possible to use Swift (OpenStack) as storage backend and to choose traditional symmetric GPG encryption only.
+
+```ruby
+duply_profile 'swift' do
+  destination 'swift://backup'
+  user 'testuser'
+  password 'testpass'
+  swift_username 'swift_user123'
+  swift_tenant 'swift_tenant123'
+  swift_password 'swift_password123'
+  swift_authurl 'https:/swift.example.com:5000/v2.0'
+  includes [
+      '/etc/duply'
+  ]
+  excludes [
+      '**.asc'
+  ]
+end
+```
 Execute duply commands from the cookbook
 
 ```ruby
@@ -68,6 +87,7 @@ end
 License & Authors
 -----------------
 - Author:: Li-Te Chen (<datacoda@gmail.com>)
+- Author:: Gunter Miegel (<gunter.miegel@rgsqd.de>, <gunter.miegel@cloudandheat.com>)
 
 ```text
 Copyright 2014-2016 Nephila Graphic, Li-Te Chen
