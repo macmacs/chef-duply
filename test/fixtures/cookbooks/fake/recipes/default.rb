@@ -103,6 +103,22 @@ duply_profile 'test' do
   ]
 end
 
+# Swift backend
+duply_profile 'swift' do
+  destination 'swift://backup'
+  user 'testuser'
+  password 'testpass'
+  encrypt_for [
+    keys['server'][:key_id]
+  ]
+  signed_by keys['server'][:key_id]
+  passphrase keys['server'][:passphrase]
+  swift_username 'swift_user123'
+  swift_tenant 'swift_tenant123'
+  swift_password 'swift_password123'
+  swift_authurl 'https:/swift.example.com:5000/v2.0'
+end
+
 # Test commands
 
 execute 'purge_test' do

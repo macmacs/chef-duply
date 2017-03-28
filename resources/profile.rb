@@ -52,6 +52,11 @@ attribute :pre_cookbook, kind_of: String, default: 'duply'
 attribute :post_template, kind_of: String, default: 'post.erb'
 attribute :post_cookbook, kind_of: String, default: 'duply'
 
+attribute :swift_username, kind_of: String, default: nil
+attribute :swift_tenant, kind_of: String, default: nil
+attribute :swift_password, kind_of: String, default: nil
+attribute :swift_authurl, kind_of: String, default: nil
+
 def initialize(*args)
   super
   @action = :create

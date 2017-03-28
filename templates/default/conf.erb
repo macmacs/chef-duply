@@ -26,6 +26,14 @@ TARGET_USER='<%= @target_user %>'
 TARGET_PASS='<%= @target_pass %>'
 <% end -%>
 
+# Environment variables for Swift (Open Stack object store) backend
+<% unless @swift_username.nil? or @swift_password.nil? or @swift_authurl.nil? -%>
+SWIFT_USERNAME='<%= @swift_username %>'
+SWIFT_TENANT='<%= @swift_tenant %>'
+SWIFT_PASSWORD='<%= @swift_password %>'
+SWIFT_AUTHURL='<%= @swift_authurl %>'
+<% end -%>
+
 # base directory to backup
 SOURCE='/'
 

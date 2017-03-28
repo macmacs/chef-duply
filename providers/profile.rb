@@ -51,7 +51,11 @@ action :create do
       max_full_backups: new_resource.keep_full,
       max_fullbkp_age: new_resource.full_every,
       volsize: new_resource.volume_size,
-      temp_dir: new_resource.temp_dir
+      temp_dir: new_resource.temp_dir,
+      swift_username: new_resource.swift_username,
+      swift_tenant: new_resource.swift_tenant,
+      swift_password: new_resource.swift_password,
+      swift_authurl: new_resource.swift_authurl
     )
     action :create
     sensitive true
