@@ -20,6 +20,7 @@ describe file('/var/testing/restore_test/etc/duply/test/conf') do
 end
 
 # Check conf written for Swift backend
+# Also check if not used asymetric GPG options are missing
 describe file('/etc/duply/swift/conf') do
   # TODO: add content verification
   it { should be_file }
@@ -27,4 +28,7 @@ describe file('/etc/duply/swift/conf') do
   it { should contain 'SWIFT_TENANT=\'swift_tenant123\'' }
   it { should contain 'SWIFT_PASSWORD=\'swift_password123\'' }
   it { should contain 'SWIFT_AUTHURL=\'https:/swift.example.com:5000/v2.0\'' }
+  it { should_not contain 'GPG_KEY_SIGN' }
+  it { should_not contain 'GPG_PW' }
+  it { should_not contain 'GPG_PW_SIGN' }
 end

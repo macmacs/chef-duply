@@ -32,9 +32,9 @@ attribute :max_age, kind_of: String, default: '1M'
 attribute :keep_full, kind_of: [Integer, NilClass]
 attribute :full_every, kind_of: [String, NilClass]
 
-attribute :encrypt_for, kind_of: [String, Array], required: true
-attribute :signed_by, kind_of: String, required: true
-attribute :passphrase, kind_of: String, required: true
+attribute :encrypt_for, kind_of: [String, Array]
+attribute :signed_by, kind_of: String
+attribute :passphrase, kind_of: String
 attribute :compression,
           kind_of: Symbol,
           equal_to: [:bzip2, :incremental],
