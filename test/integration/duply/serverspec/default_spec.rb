@@ -28,7 +28,7 @@ describe file('/etc/duply/swift/conf') do
   it { should contain 'SWIFT_TENANT=\'swift_tenant123\'' }
   it { should contain 'SWIFT_PASSWORD=\'swift_password123\'' }
   it { should contain 'SWIFT_AUTHURL=\'https:/swift.example.com:5000/v2.0\'' }
+  it { should contain 'GPG_PW=\'swiftsecret\'' }
   it { should_not contain 'GPG_KEY_SIGN' }
-  it { should_not contain 'GPG_PW' }
   it { should_not contain 'GPG_PW_SIGN' }
 end

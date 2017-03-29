@@ -43,7 +43,8 @@ action :create do
     variables(
       gpg_keys_enc: [new_resource.encrypt_for].flatten,
       gpg_key_sign: new_resource.signed_by,
-      gpg_pw_sign: new_resource.passphrase,
+      gpg_pw: new_resource.passphrase,
+      gpg_pw_sign: new_resource.passphrase_sign,
       target: new_resource.destination,
       target_user: new_resource.user,
       target_pass: new_resource.password,

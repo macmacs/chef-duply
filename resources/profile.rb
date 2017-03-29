@@ -35,6 +35,7 @@ attribute :full_every, kind_of: [String, NilClass]
 attribute :encrypt_for, kind_of: [String, Array]
 attribute :signed_by, kind_of: String
 attribute :passphrase, kind_of: String
+attribute :passphrase_sign, kind_of: String
 attribute :compression,
           kind_of: Symbol,
           equal_to: [:bzip2, :incremental],

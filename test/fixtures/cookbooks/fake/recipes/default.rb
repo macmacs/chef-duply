@@ -13,6 +13,7 @@ keys['alice'] = {
   keyfile: 'alice.pub',
   key_id: 'DBD8962C',
   passphrase: 'alicesecret',
+  passphrase_sign: 'alicesecret',
   fingerprint: '14447E6957AC4C75065C9CEFCE7B21DCDBD8962C'
 }
 
@@ -20,6 +21,7 @@ keys['bob'] = {
   keyfile: 'bob.pub',
   key_id: '5A250D54',
   passphrase: 'bobsecret',
+  passphrase_sign: 'bobsecret',
   fingerprint: 'EBF515F2EB6542505235C2134390D06A5A250D54'
 }
 
@@ -27,6 +29,7 @@ keys['server'] = {
   keyfile: 'server.key',
   key_id: '41AB2B65',
   passphrase: 'serversecret',
+  passphrase_sign: 'serversecret',
   fingerprint: 'DEBA80E2924424EFD240630B362AC8FF41AB2B65'
 }
 
@@ -91,6 +94,7 @@ duply_profile 'test' do
   ]
   signed_by keys['server'][:key_id]
   passphrase keys['server'][:passphrase]
+  passphrase_sign keys['server'][:passphrase_sign]
   compression :bzip2
   volume_size 50
   keep_full 5
@@ -106,13 +110,13 @@ end
 # Swift backend
 duply_profile 'swift' do
   destination 'swift://backup'
-  user 'testuser'
-  password 'testpass'
+  passphrase 'swiftsecret'
   swift_username 'swift_user123'
   swift_tenant 'swift_tenant123'
   swift_password 'swift_password123'
   swift_authurl 'https:/swift.example.com:5000/v2.0'
 end
+
 
 # Test commands
 
