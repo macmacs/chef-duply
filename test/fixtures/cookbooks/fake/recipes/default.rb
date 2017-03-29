@@ -117,7 +117,6 @@ duply_profile 'swift' do
   swift_authurl 'https:/swift.example.com:5000/v2.0'
 end
 
-
 # Test commands
 
 execute 'purge_test' do

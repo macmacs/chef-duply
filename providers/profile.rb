@@ -62,9 +62,12 @@ action :create do
     sensitive true
   end
 
+  # python-swifclient is not available in Ubuntu 12.04 and Debian 7.11
   tpackage_swift = package 'python-swiftclient' do
     action :install
     only_if { new_resource.swift_username.nil? }
+    not_if { node['platform'].eql?('ubuntu') && node['platform_version'].eql?('12.04') }
+    not_if { node['platform'].eql?('debian') && node['platform_version'].eql?('7.11') }
   end
 
   texclude = template "#{node['duply']['dir']}/#{new_resource.name}/exclude" do

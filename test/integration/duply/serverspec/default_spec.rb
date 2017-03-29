@@ -34,6 +34,10 @@ describe file('/etc/duply/swift/conf') do
 end
 
 # Verify that 'python-swiftclient" is installed
-describe package('python-swiftclient') do
+# python-swifclient is not available in Ubuntu 12.04 and Debian 7.11
+# so we skip this test for this releases.
+if os[:family].eql?('ubuntu') && ['14.04'].include?(os[:release])
+  describe package('python-swiftclient') do
     it { should be_installed }
+  end
 end
