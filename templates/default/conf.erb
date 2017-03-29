@@ -3,15 +3,14 @@
 
 <% unless @gpg_key_enc.nil? -%>
 GPG_KEYS_ENC='<%= @gpg_keys_enc.flatten.join ',' %>'
-end
 <% end -%>
 
 <% unless @gpg_key_sign.nil? -%>
 GPG_KEY_SIGN='<%= @gpg_key_sign %>'
 <% end -%>
 
-<% unless @gpg_pw_sign.nil? -%>
-GPG_PW='<%= @gpg_pw_sign %>'
+<% unless @gpg_pw.nil? -%>
+GPG_PW='<%= @gpg_pw %>'
 <% end -%>
 
 <% unless @gpg_pw_sign.nil? -%>
