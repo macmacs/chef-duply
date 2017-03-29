@@ -62,6 +62,11 @@ action :create do
     sensitive true
   end
 
+  tpackage_swift = package 'python-swiftclient' do
+    action :install
+    only_if { new_resource.swift_username.nil? }
+  end
+
   texclude = template "#{node['duply']['dir']}/#{new_resource.name}/exclude" do
     cookbook 'duply'
     source 'exclude.erb'
@@ -96,6 +101,7 @@ action :create do
   end
 
   new_resource.updated_by_last_action(tconf.updated_by_last_action? ||
+                                      tpackage_swift.updated_by_last_action? ||
                                       texclude.updated_by_last_action? ||
                                       tpre.updated_by_last_action? ||
                                       tpost.updated_by_last_action?)

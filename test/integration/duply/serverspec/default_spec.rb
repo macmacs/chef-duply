@@ -32,3 +32,8 @@ describe file('/etc/duply/swift/conf') do
   it { should_not contain 'GPG_KEY_SIGN' }
   it { should_not contain 'GPG_PW_SIGN' }
 end
+
+# Verify that 'python-swiftclient" is installed
+describe package('python-swiftclient') do
+    it { should be_installed }
+end
