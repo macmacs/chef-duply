@@ -1,7 +1,7 @@
 ---
 driver_plugin: vagrant
 driver_config:
-  require_chef_omnibus: <%= ENV['CHEF_VERSION'] || '12.5.1' %>
+  require_chef_omnibus: <%= ENV['CHEF_VERSION'] || '12.7' %>
   ssh:
     insert_key: false
 
@@ -11,6 +11,8 @@ provisioner:
 platforms:
   - name: ubuntu-12.04
   - name: ubuntu-14.04
+# FIXME(frzb): Ubuntu 16.04 currently fails at Serverspec tests
+# - name: ubuntu-16.04
   - name: debian-7.11
 
 suites:

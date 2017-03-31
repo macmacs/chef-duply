@@ -43,7 +43,8 @@ action :create do
     variables(
       gpg_keys_enc: [new_resource.encrypt_for].flatten,
       gpg_key_sign: new_resource.signed_by,
-      gpg_pw_sign: new_resource.passphrase,
+      gpg_pw: new_resource.passphrase,
+      gpg_pw_sign: new_resource.passphrase_sign,
       target: new_resource.destination,
       target_user: new_resource.user,
       target_pass: new_resource.password,
@@ -51,10 +52,22 @@ action :create do
       max_full_backups: new_resource.keep_full,
       max_fullbkp_age: new_resource.full_every,
       volsize: new_resource.volume_size,
-      temp_dir: new_resource.temp_dir
+      temp_dir: new_resource.temp_dir,
+      swift_username: new_resource.swift_username,
+      swift_tenant: new_resource.swift_tenant,
+      swift_password: new_resource.swift_password,
+      swift_authurl: new_resource.swift_authurl
     )
     action :create
     sensitive true
+  end
+
+  # python-swifclient is not available in Ubuntu 12.04 and Debian 7.11
+  tpackage_swift = package 'python-swiftclient' do
+    action :install
+    only_if { new_resource.swift_username.nil? }
+    not_if { node['platform'].eql?('ubuntu') && node['platform_version'].eql?('12.04') }
+    not_if { node['platform'].eql?('debian') && node['platform_version'].eql?('7.11') }
   end
 
   texclude = template "#{node['duply']['dir']}/#{new_resource.name}/exclude" do
@@ -91,6 +104,7 @@ action :create do
   end
 
   new_resource.updated_by_last_action(tconf.updated_by_last_action? ||
+                                      tpackage_swift.updated_by_last_action? ||
                                       texclude.updated_by_last_action? ||
                                       tpre.updated_by_last_action? ||
                                       tpost.updated_by_last_action?)
