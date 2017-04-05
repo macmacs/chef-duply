@@ -25,8 +25,8 @@ describe file('/etc/duply/swift/conf') do
   # TODO: add content verification
   it { should be_file }
   it { should contain 'SWIFT_USERNAME=\'swift_user123\'' }
-  it { should contain 'SWIFT_TENANT=\'swift_tenant123\'' }
   it { should contain 'SWIFT_PASSWORD=\'swift_password123\'' }
+  it { should contain 'SWIFT_TENANTNAME=\'swift_tenant123\'' }
   it { should contain 'SWIFT_AUTHURL=\'https:/swift.example.com:5000/v2.0\'' }
   it { should contain 'GPG_PW=\'swiftsecret\'' }
   it { should_not contain 'GPG_KEY_SIGN' }
