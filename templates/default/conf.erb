@@ -29,19 +29,23 @@ GPG_PW_SIGN='<%= @gpg_pw_sign %>'
 # credentials & server address of the backup target (URL-Format)
 TARGET='<%= @target %>'
 
+
+# This is needed even if with an empty value.
+TARGET_USER='<%= @target_user %>'
+
 # optionally the username/password can be defined as extra variables
 # setting them here _and_ in TARGET results in an error
 <% unless @target_pass.nil? -%>
-TARGET_USER='<%= @target_user %>'
 TARGET_PASS='<%= @target_pass %>'
 <% end -%>
 
 # Environment variables for Swift (Open Stack object store) backend
 <% unless @swift_username.nil? or @swift_password.nil? or @swift_authurl.nil? -%>
-SWIFT_USERNAME='<%= @swift_username %>'
-SWIFT_TENANT='<%= @swift_tenant %>'
-SWIFT_PASSWORD='<%= @swift_password %>'
-SWIFT_AUTHURL='<%= @swift_authurl %>'
+export SWIFT_USERNAME='<%= @swift_username %>'
+export SWIFT_PASSWORD='<%= @swift_password %>'
+export SWIFT_TENANTNAME='<%= @swift_tenant %>'
+export SWIFT_AUTHURL='<%= @swift_authurl %>'
+export SWIFT_AUTHVERSION=<%= @swift_authversion%>
 <% end -%>
 
 # base directory to backup

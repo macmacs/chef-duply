@@ -57,6 +57,7 @@ attribute :swift_username, kind_of: String, default: nil
 attribute :swift_tenant, kind_of: String, default: nil
 attribute :swift_password, kind_of: String, default: nil
 attribute :swift_authurl, kind_of: String, default: nil
+attribute :swift_authversion, kind_of: Integer, default: 2
 
 def initialize(*args)
   super

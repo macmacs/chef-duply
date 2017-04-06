@@ -59,8 +59,7 @@ It is also possible to use Swift (OpenStack) as storage backend and to choose tr
 ```ruby
 duply_profile 'swift' do
   destination 'swift://backup'
-  user 'testuser'
-  password 'testpass'
+  passphrase 'testpass'
   swift_username 'swift_user123'
   swift_tenant 'swift_tenant123'
   swift_password 'swift_password123'

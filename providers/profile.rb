@@ -56,7 +56,8 @@ action :create do
       swift_username: new_resource.swift_username,
       swift_tenant: new_resource.swift_tenant,
       swift_password: new_resource.swift_password,
-      swift_authurl: new_resource.swift_authurl
+      swift_authurl: new_resource.swift_authurl,
+      swift_authversion: new_resource.swift_authversion
     )
     action :create
     sensitive true
