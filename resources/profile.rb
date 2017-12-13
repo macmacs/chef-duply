@@ -38,7 +38,7 @@ attribute :passphrase, kind_of: String
 attribute :passphrase_sign, kind_of: String
 attribute :compression,
           kind_of: Symbol,
-          equal_to: [:bzip2, :incremental],
+          equal_to: [:bzip2, :incremental, :none],
           default: :none
 
 attribute :volume_size, kind_of: Integer, default: 25
