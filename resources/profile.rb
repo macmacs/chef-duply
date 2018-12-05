@@ -27,6 +27,8 @@ attribute :password, kind_of: String, default: nil
 attribute :includes, kind_of: Array, default: []
 attribute :excludes, kind_of: Array, default: []
 
+attribute :additional_params, kind_of: String, default: nil
+
 attribute :max_age, kind_of: String, default: '1M'
 
 attribute :keep_full, kind_of: [Integer, NilClass]
@@ -49,9 +51,11 @@ attribute :cookbook, kind_of: String, default: 'duply'
 
 attribute :pre_template, kind_of: String, default: 'pre.erb'
 attribute :pre_cookbook, kind_of: String, default: 'duply'
+attribute :pre_commands, kind_of: Array, default: []
 
 attribute :post_template, kind_of: String, default: 'post.erb'
 attribute :post_cookbook, kind_of: String, default: 'duply'
+attribute :post_commands, kind_of: Array, default: []
 
 attribute :swift_username, kind_of: String, default: nil
 attribute :swift_tenant, kind_of: String, default: nil

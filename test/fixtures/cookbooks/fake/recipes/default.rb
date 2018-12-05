@@ -105,6 +105,13 @@ duply_profile 'test' do
   excludes [
     '**.asc'
   ]
+  pre_commands [
+    'date'
+  ]
+  post_commands [
+    'date'
+  ]
+  # additional_params = ""
 end
 
 # Swift backend

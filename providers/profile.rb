@@ -57,7 +57,8 @@ action :create do
       swift_tenant: new_resource.swift_tenant,
       swift_password: new_resource.swift_password,
       swift_authurl: new_resource.swift_authurl,
-      swift_authversion: new_resource.swift_authversion
+      swift_authversion: new_resource.swift_authversion,
+      additional_params: new_resource.additional_params
     )
     action :create
     sensitive true
@@ -90,6 +91,9 @@ action :create do
     owner 'root'
     group 'root'
     mode '0600'
+    variables(
+      pre_commands: new_resource.pre_commands
+    )
     action :create
     sensitive true
   end
@@ -100,6 +104,9 @@ action :create do
     owner 'root'
     group 'root'
     mode '0600'
+    variables(
+      post_commands: new_resource.post_commands
+    )
     action :create
     sensitive true
   end

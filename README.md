@@ -1,14 +1,12 @@
 duply cookbook
 ==============
-[![Build Status](https://travis-ci.org/datacoda/chef-duply.svg?branch=master)](https://travis-ci.org/datacoda/chef-duply)
-[![Cookbook Version](https://img.shields.io/cookbook/v/duply.svg)](https://supermarket.chef.io/cookbooks/duply)
 
 LWRP for Duplicity/Duply backup sets.
 
 Supports
 
-* Ubuntu 12.04
-* Ubuntu 14.04
+* Ubuntu 18.04
+* Ubuntu 16.04
 * Debian 7.4
 
 
@@ -51,6 +49,13 @@ duply_profile "profile_name" do
   excludes [
       '**.asc'
   ]
+  pre_commands [
+    'date'
+  ]
+  post_commands [
+    'date'
+  ]
+  # additional_params = ""
 end
 ```
 

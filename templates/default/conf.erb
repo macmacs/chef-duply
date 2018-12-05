@@ -96,3 +96,6 @@ TEMP_DIR=<%= @temp_dir %>
 # more duplicity command line options can be added in the following way
 # don't forget to leave a separating space char at the end
 #DUPL_PARAMS="$DUPL_PARAMS --put_your_options_here "
+<% unless @additional_params.nil? -%>
+DUPL_PARAMS="$DUPL_PARAMS '<%= @gadditional_params %>'
+<% end -%>
